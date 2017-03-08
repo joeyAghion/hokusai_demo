@@ -1,0 +1,17 @@
+<div style="float:right">
+  <%= link_to 'New post', new_post_path %>
+</div>
+
+<% @posts.each do |post| %>
+  <h3><%= post.title %></h3>
+  <article>
+    <%= post.body %>
+  </article>
+  <hr/>
+<% end %>
+
+<ul>
+  <li>FOO_CONFIG: <%= ENV['FOO_CONFIG'].inspect %></li>
+  <li>RAILS_ENV: <%= ENV['RAILS_ENV'].inspect %></li>
+  <li>Rails.env: <%= Rails.env.inspect %></li>
+</ul>
