@@ -1,0 +1,10 @@
+---
+version: '2'
+services:
+  hokusai-demo:
+    command: bundle exec rake db:setup test
+    extends:
+      file: common.yml
+      service: hokusai-demo
+  db:
+    image: postgres:9.5

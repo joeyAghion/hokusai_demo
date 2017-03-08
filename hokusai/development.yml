@@ -1,0 +1,12 @@
+---
+version: '2'
+services:
+  web:
+    command: bundle exec puma
+    extends:
+      file: common.yml
+      service: hokusai-demo
+    ports:
+    - 8080:80
+  db:
+    image: postgres:9.5
