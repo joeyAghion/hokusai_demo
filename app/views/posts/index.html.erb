@@ -5,6 +5,7 @@
 <% @posts.each do |post| %>
   <h3><%= post.title %></h3>
   <h5><%= post.subtitle %></h5>
+  <%= image_tag(post.thumbnail_url) if post.thumbnail_url.present? %>
   <article>
     <%= post.body %>
   </article>
