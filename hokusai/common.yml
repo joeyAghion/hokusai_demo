@@ -1,0 +1,8 @@
+---
+version: '2'
+services:
+  hokusai-demo:
+    build: ../
+    environment:
+    - DATABASE_HOST=db
+    - DATABASE_USER=postgres
