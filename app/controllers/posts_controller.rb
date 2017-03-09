@@ -8,7 +8,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.create!(params.require(:post).permit(:title, :body))
+    @post = Post.create!(params.require(:post).permit(:title, :subtitle, :body))
     redirect_to action: 'index'
   end
 end
