@@ -1,0 +1,59 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: hokusai-demo
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: hokusai-demo
+      name: hokusai-demo
+      namespace: default
+    spec:
+      containers:
+      - env:
+        - name: RAILS_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: hokusai-demo-config
+              key: RAILS_ENV
+        - name: FOO_CONFIG
+          valueFrom:
+            configMapKeyRef:
+              name: hokusai-demo-config
+              key: FOO_CONFIG
+        - name: SECRET_KEY_BASE
+          valueFrom:
+            secretKeyRef:
+              name: hokusai-demo-secrets
+              key: SECRET_KEY_BASE
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: hokusai-demo-secrets
+              key: DATABASE_URL
+        image: 585031190124.dkr.ecr.us-east-1.amazonaws.com/hokusai-demo:staging
+        imagePullPolicy: Always
+        name: hokusai-demo
+        command: ['bundle', 'exec', 'puma']
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: hokusai-demo
+  name: hokusai-demo
+  namespace: default
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: hokusai-demo
+  sessionAffinity: None
+  type: LoadBalancer
