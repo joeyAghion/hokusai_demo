@@ -48,10 +48,21 @@ metadata:
     app: hokusai-demo
   name: hokusai-demo
   namespace: default
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "arn:aws:iam::585031190124:server-certificate/2016-01-19_artsy-net-wildcard"
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+    service.beta.kubernetes.io/aws-load-balancer-connection-draining-enabled: "true"
 spec:
   ports:
+  - port: 443
+    protocol: TCP
+    name: https
+    targetPort: 80
   - port: 80
     protocol: TCP
+    name: http
     targetPort: 80
   selector:
     app: hokusai-demo
